@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+
+  app:
+    build: .
+    container_name: nestjs-decorators-app
+    entrypoint: ./.docker/entrypoint.sh
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/home/node/app
+
+  db:
+    image: mysql:5.7
+    container_name: nestjs-decorators-db
+    restart: always
+    tty: true
+    ports:
+      - "33006:3306"
+    volumes:
+      - iniciando-nestjs-dbdata:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=iniciando_nestjs
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=root
+
+  rabbitmq:
+    image: 'rabbitmq:3.8-management-alpine'
+    container_name: nestjs-decorators-rabbitmq
+    hostname: rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - './.docker/rabbitmq_data:/var/lib/rabbitmq/mnesia'
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+
+volumes:
+  iniciando-nestjs-dbdata:
+    external: true
