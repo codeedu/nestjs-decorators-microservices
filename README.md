@@ -4,7 +4,7 @@
 
 ## Descrição
 
-Como iniciar com projeto Nest.js com Docker
+Como trabalhar com Nestjs usando Decorators aplicados a microsserviços com Docker
 
 ### Para Windows 
 
